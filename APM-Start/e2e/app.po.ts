@@ -1,11 +1,11 @@
 import { browser, by, element } from 'protractor';
 
 export class APMPage {
-  navigateTo() {
+  static navigateTo() {
     return browser.get('/');
   }
 
-  getParagraphText() {
+  static getParagraphText() {
     return element(by.css('pm-root h1')).getText();
   }
 }
