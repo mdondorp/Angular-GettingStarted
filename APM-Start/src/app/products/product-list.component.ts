@@ -5,7 +5,7 @@ import {ProductService} from './product.service';
 @Component({
   selector: 'pm-products',
   templateUrl: './product-list.component.html',
-  styleUrls: ['./product-list.compontent.css']
+  styleUrls: ['./product-list.component.css']
 })
 export class ProductListComponent implements OnInit {
   pageTitle: string = 'Product List';
@@ -15,6 +15,7 @@ export class ProductListComponent implements OnInit {
   geenProductenMelding: string = 'Er zijn geen producten';
   products: IProduct[];
   filteredProducts: IProduct[] = [];
+  errorMessage: any;
 
   constructor(private _productService: ProductService) {
   }
@@ -40,8 +41,13 @@ export class ProductListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.products = this._productService.getProducts();
-    this.filteredProducts = this.products;
+    this._productService.getProducts().subscribe(
+      products => {
+        this.products = products;
+        this.filteredProducts = this.products;
+      },
+      error1 => this.errorMessage = <any>error1);
+
   }
 
   onRatingClicked(message: string): void {
